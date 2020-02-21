@@ -1,0 +1,127 @@
+Break 15 [17]> (load "p2Lisp.txt" :echo T :print T)
+;;                Loading file p2Lisp.txt ...
+(defun remlast (L)
+    (cond ( (NULL L) NIL )
+        ( ( NULL (CDR L)) NIL )
+        ( T (cons (car L) (remlast (cdr L))) )
+    ) )
+REMLAST
+
+
+(defun LAST1 (L)
+        (cond ( (NULL (CDR L)) (CAR L) )
+           ( T (LAST1 (CDR L)) ) 
+        )
+  )
+LAST1
+
+
+
+(defun removeNILTop (L)  
+        (cond ( (NULL L) NIL )
+            ( (NULL (car L)) (removeNILTop (cdr L)))
+            ( T (cons (car L) (removeNILTOP (cdr L)) ) )
+        ) )
+REMOVENILTOP
+
+
+(defun removeNILMost (L)
+        (cond ( (NULL L) NIL )
+            ( (NULL (car L)) (removeNILMost (cdr L)))
+            ( (NOT (atom (car L))) 
+                (cons (removeNILMost (car L)) (removeNILMost (cdr L)))) 
+            ( T (cons (car L) (removeNILMost (cdr L)) ) )
+        ) )
+REMOVENILMOST
+
+
+(defun reverseTop (L)
+        (cond ( (NULL L) NIL)
+                ( (NULL (cdr L)) L )
+                (T (append (reverseTop (cdr L)) (list(car L)) ) )
+        ) )
+REVERSETOP
+
+
+(defun reverseAll (L)
+        (cond ( (NULL L) NIL)
+                ( (atom L) L )
+                (T (append (reverseAll (cdr L)) (list(reverseAll(car L)) ) ) )
+        ) )
+REVERSEALL
+
+
+
+(defun palindrome (L)
+                (EQUAL L (reverseTop L) )
+        )
+PALINDROME
+
+
+;;                Loaded file p2Lisp.txt
+T
+Break 15 [17]> (load "p2LispRun.txt" :echo T :print T)
+;;                Loading file p2LispRun.txt ...
+;;; LISP Program #2 p2LispRun.txt
+
+;;;  #1 removeNILTop
+
+(removeNILTop '(NIL X NIL NIL Y  NIL Z))
+(X Y Z)
+
+(removeNILTop '(X NIL Y NIL Z NIL))
+(X Y Z)
+
+(removeNILTop '(NIL (X NIL Y) (NIL NIL)))
+((X NIL Y) (NIL NIL))
+
+
+;;; #2 removeNILMost
+
+(removeNILMost '(NIL X NIL NIL Y  NIL Z))
+(X Y Z)
+
+(removeNILMost '(X NIL (Y NIL Z) NIL))
+(X (Y Z))
+
+(removeNILMost '(NIL (NIL) (X NIL Y) (NIL NIL) Z))
+(NIL (X Y) NIL Z)
+
+(removeNILMost '(NIL ( (((((NIL) NIL)))))))
+((((((NIL))))))
+
+
+;;; #3 reverseTop
+
+(reverseTop '(X Y Z))
+(Z Y X)
+
+(reverseTop '(X (Y Z (A)) (W)))
+((W) (Y Z (A)) X)
+
+(reverseTop '(R A C E C A R))
+(R A C E C A R)
+
+;;; #4 reverseALL
+
+(reverseAll '(X Y Z))
+(Z Y X)
+
+(reverseAll '(X (Y Z (A)) (W)))
+((W) ((A) Z Y) X)
+
+
+;;; #5 palindrome
+
+(palindrome '(R A C E C A R))
+T
+
+(palindrome '(W A S I T A C A R O R A C A T I S A W))
+T
+
+(palindrome '(N I X O N))
+NIL
+
+;;                Loaded file p2LispRun.txt
+T
+Break 15 [17]> 
